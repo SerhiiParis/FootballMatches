@@ -1,0 +1,39 @@
+/* League */
+.leagues-container {
+    padding: 20px;
+}
+
+.league-section {
+    margin-bottom: 30px;
+    padding: 15px;
+    background-color: #FFF9E3;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.league-section h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #FF4500;
+}
+
+/* Carousel */
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.3s ease;
+    gap: 15px;
+}
+
+.carousel-track > match-card {
+    flex: 0 0 calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    box-sizing: border-box;
+}

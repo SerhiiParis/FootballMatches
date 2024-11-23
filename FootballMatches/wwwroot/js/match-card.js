@@ -33,7 +33,7 @@
     }
 
     async connectedCallback() {
-        const cssURL = "/css/match-card.css";
+        const cssURL = "/css/match.css";
         const cssContent = await fetch(cssURL).then((res) => res.text());
         const style = document.createElement("style");
         style.textContent = cssContent;

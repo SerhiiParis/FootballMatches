@@ -27,7 +27,7 @@
 
     async connectedCallback() {
         // Dynamically load external CSS
-        const cssURL = "/css/carousel.css";
+        const cssURL = "/css/league.css";
         const cssContent = await fetch(cssURL).then((res) => res.text());
         const style = document.createElement("style");
         style.textContent = cssContent;
