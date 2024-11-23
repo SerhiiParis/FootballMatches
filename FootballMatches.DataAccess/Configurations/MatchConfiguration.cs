@@ -16,10 +16,6 @@ namespace FootballMatches.DataAccess.Configurations
                 .HasKey(c => c.Id);
 
             builder
-                .Property(c => c.League)
-                .HasConversion(new LeagueConverter());
-
-            builder
                 .Property(c => c.ApiId)
                 .HasColumnType("INT")
                 .IsRequired();
@@ -65,6 +61,16 @@ namespace FootballMatches.DataAccess.Configurations
             builder
                 .Property(c => c.AwayWin)
                 .HasColumnType("DECIMAL (19, 4)");
+            
+            builder
+                .Property(c => c.League)
+                .HasColumnType("CHAR(3)")
+                .HasConversion(new LeagueConverter());
+
+            builder
+                .Property(c => c.Status)
+                .HasColumnType("CHAR(10)")
+                .HasConversion(new MatchStatusConverter());
         }
     }
 }

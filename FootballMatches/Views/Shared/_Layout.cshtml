@@ -4,14 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FootballMatches</title>
+    <link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/league.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/match.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/header.css" asp-append-version="true" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <header class="main-header">
-    <h1>NATIVE STATS</h1>
+    <div class="header-container">
+        <div class="logo">
+            <h1>NATIVE STATS</h1>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-btn">Register</button>
+            <button class="nav-btn">Login</button>
+        </nav>
+    </div>
 </header>
 <main>
     @RenderBody()

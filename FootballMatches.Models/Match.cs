@@ -13,6 +13,9 @@ public class Match
 
     [Required]
     public required League League { get; set; }
+    
+    [Required]
+    public required MatchStatus Status { get; set; }
 
     [Required]
     public required string HomeTeam { get; set; }

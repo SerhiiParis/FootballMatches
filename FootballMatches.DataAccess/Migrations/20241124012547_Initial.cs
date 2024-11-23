@@ -17,9 +17,12 @@ namespace FootballMatches.DataAccess.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ApiId = table.Column<int>(type: "INT", nullable: false),
-                    League = table.Column<string>(type: "TEXT", nullable: false),
+                    League = table.Column<string>(type: "CHAR(3)", nullable: false),
+                    Status = table.Column<string>(type: "CHAR(10)", nullable: false),
                     HomeTeam = table.Column<string>(type: "NVARCHAR(256)", nullable: false),
+                    HomeTeamCrestUrl = table.Column<string>(type: "NVARCHAR(256)", nullable: false),
                     AwayTeam = table.Column<string>(type: "NVARCHAR(256)", nullable: false),
+                    AwayTeamCrestUrl = table.Column<string>(type: "NVARCHAR(256)", nullable: false),
                     Date = table.Column<long>(type: "DATETIMEOFFSET (7)", nullable: false),
                     Location = table.Column<string>(type: "NVARCHAR(500)", nullable: false),
                     HomeWin = table.Column<decimal>(type: "DECIMAL (19, 4)", nullable: true),

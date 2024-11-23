@@ -4,6 +4,7 @@ using FootballMatches.Models.Dto;
 using FootballMatches.Models.Enums;
 using FootballMatches.Services.DataApi.Helpers;
 using FootballMatches.Services.DataApi.Models;
+using FootballMatches.Shared;
 using Microsoft.Extensions.Logging;
 
 namespace FootballMatches.Services.DataApi;
@@ -23,9 +24,12 @@ public class DataApiService : IDataApiService
         _logger = logger;
     }
 
-    public async Task<List<MatchDto>> GetMatches(DateTimeOffset dateFrom, DateTimeOffset dateTo)
+    public async Task<List<MatchDto>> GetMatches(
+        DateTimeOffset dateFrom,
+        DateTimeOffset dateTo,
+        List<MatchStatus> statuses)
     {
-        var response = await _client.Get(dateFrom, dateTo);
+        var response = await _client.Get(dateFrom, dateTo, statuses);
 
         if (response.IsSuccessStatusCode)
         {
@@ -37,6 +41,7 @@ public class DataApiService : IDataApiService
             {
                 ApiId = x.Id,
                 League = Enum.Parse<League>(x.Competition.Code),
+                Status = x.Status.GetEnumByDescription<MatchStatus>(),
                 HomeTeam = x.HomeTeam.Name,
                 AwayTeam = x.AwayTeam.Name,
                 HomeTeamCrestUrl = x.HomeTeam.Crest,

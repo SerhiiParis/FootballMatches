@@ -1,5 +1,6 @@
 ﻿using FootballMatches.Models;
 using FootballMatches.Models.Contracts.DataAccess;
+using FootballMatches.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FootballMatches.DataAccess.Repositories;
@@ -13,10 +14,10 @@ public class MatchRepository : IMatchRepository
         _dbContext = dbContext;
     }
 
-    public async Task<List<Match>> Get(DateTimeOffset from, DateTimeOffset to)
+    public async Task<List<Match>> Get(DateTimeOffset from, DateTimeOffset to, List<MatchStatus> statuses)
     {
         return await _dbContext.Matches
-            .Where(x => x.Date >= from && x.Date <= to)
+            .Where(x => x.Date >= from && x.Date <= to && statuses.Contains(x.Status))
             .ToListAsync();
     }
 

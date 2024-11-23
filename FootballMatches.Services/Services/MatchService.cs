@@ -3,6 +3,7 @@ using FootballMatches.Models.Contracts.DataAccess;
 using FootballMatches.Models.Contracts.Services;
 using FootballMatches.Models.Contracts.Services.DataApi;
 using FootballMatches.Models.Dto;
+using FootballMatches.Models.Enums;
 using FootballMatches.Shared;
 using Microsoft.Extensions.Options;
 
@@ -29,10 +30,12 @@ public class MatchService : IMatchService
 
     public async Task<List<LeagueDto>> GetRecent()
     {
-        var to = DateTimeOffset.UtcNow;
-        var from = to.AddDays(-10);
+        var to = DateTimeOffset.UtcNow.Date;
+        var from = to.AddDays(-7).Date;
         
-        var result = await Get(from, to, _lastRecentPull, _appConfig.MaxRecentHoursToleranceHours);
+        var result = await Get(
+            from, to, [MatchStatus.Finished], _lastRecentPull,
+            _appConfig.MaxRecentHoursToleranceHours, orderByDescending: true);
        
         _lastRecentPull = DateTimeOffset.UtcNow;
         return result;
@@ -40,10 +43,12 @@ public class MatchService : IMatchService
 
     public async Task<List<LeagueDto>> GetUpcoming()
     {
-        var from = DateTimeOffset.UtcNow;
-        var to = from.AddDays(10);
+        var from = DateTimeOffset.UtcNow.Date;
+        var to = from.AddDays(7).Date;
         
-        var result = await Get(from, to, _lastUpcomingPull, _appConfig.MaxUpcomingHoursToleranceHours);
+        var result = await Get(
+            from, to, [MatchStatus.Scheduled], _lastUpcomingPull,
+            _appConfig.MaxUpcomingHoursToleranceHours);
         
         _lastUpcomingPull = DateTimeOffset.UtcNow;
         return result;
@@ -52,21 +57,27 @@ public class MatchService : IMatchService
     private async Task<List<LeagueDto>> Get(
         DateTimeOffset from,
         DateTimeOffset to,
+        List<MatchStatus> statuses,
         DateTimeOffset? lastPull,
-        int maxUpcomingHoursTolerance)
+        int maxUpcomingHoursTolerance,
+        bool orderByDescending = false)
     {
-        var repoMatches = await _matchRepository.Get(from, to);
+        var repoMatches = await _matchRepository.Get(from, to, statuses);
 
         if (lastPull == null || 
             repoMatches.Count == 0 ||
             DateTimeOffset.UtcNow - lastPull > TimeSpan.FromHours(maxUpcomingHoursTolerance))
         {
-            var newMatches = await AddMatches(from, to, repoMatches);
+            var newMatches = await AddMatches(from, to, statuses, repoMatches);
             await _matchRepository.Save();
             repoMatches = repoMatches.Union(newMatches).ToList();
         }
 
-        return repoMatches.GroupBy(x => x.League).Select(grouped => new LeagueDto
+        var repoMatchesQ = orderByDescending
+            ? repoMatches.OrderByDescending(r => r.Date)
+            : repoMatches.OrderBy(r => r.Date);
+
+        return repoMatchesQ.GroupBy(x => x.League).Select(grouped => new LeagueDto
         {
             Name = grouped.Key.GetDescriptionString(),
             Code = grouped.Key.ToString(),
@@ -74,6 +85,7 @@ public class MatchService : IMatchService
             {
                 ApiId = match.ApiId,
                 League = match.League,
+                Status = match.Status,
                 HomeTeam = match.HomeTeam,
                 AwayTeam = match.AwayTeam,
                 HomeTeamCrestUrl = match.HomeTeamCrestUrl,
@@ -90,9 +102,10 @@ public class MatchService : IMatchService
     private async Task<List<Match>> AddMatches(
         DateTimeOffset from,
         DateTimeOffset to,
+        List<MatchStatus> statuses,
         List<Match> repoMatches)
     {
-        var apiMatches = await _apiService.GetMatches(from, to);
+        var apiMatches = await _apiService.GetMatches(from, to, statuses);
 
         var matchesToAdd = apiMatches
             .Where(a => repoMatches.All(r => r.ApiId != a.ApiId))
@@ -100,6 +113,7 @@ public class MatchService : IMatchService
             {
                 ApiId = x.ApiId,
                 League = x.League,
+                Status = x.Status,
                 HomeTeam = x.HomeTeam,
                 AwayTeam = x.AwayTeam,
                 HomeTeamCrestUrl = x.HomeTeamCrestUrl,
@@ -107,7 +121,8 @@ public class MatchService : IMatchService
                 Date = x.Date,
                 Location = x.Location,
                 HomeWin = x.HomeWin,
-                Draw = x.Draw
+                Draw = x.Draw,
+                AwayWin = x.AwayWin
             })
             .ToList();
         var matchesToUpdate = repoMatches.Where(r => apiMatches.Any(a => a.ApiId == r.ApiId));
@@ -116,13 +131,15 @@ public class MatchService : IMatchService
         {
             var newMatch = apiMatches.First(x => x.ApiId == match.ApiId);
             if (match.Location != newMatch.Location ||
-                match.Date == newMatch.Date ||
+                match.Date != newMatch.Date ||
+                match.Status != newMatch.Status ||
                 match.HomeWin != newMatch.HomeWin ||
                 match.Draw != newMatch.Draw ||
                 match.AwayWin != newMatch.AwayWin)
             {
                 match.Location = newMatch.Location;
                 match.Date = newMatch.Date;
+                match.Status = newMatch.Status;
                 match.HomeWin = newMatch.HomeWin;
                 match.Draw = newMatch.Draw;
                 match.AwayWin = newMatch.AwayWin;

@@ -15,4 +15,8 @@
       <ProjectReference Include="..\FootballMatches.Models\FootballMatches.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Migrations\" />
+    </ItemGroup>
+
 </Project>

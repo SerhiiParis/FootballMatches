@@ -7,6 +7,7 @@ public class MatchDto
     public required int ApiId { get; set; }
     
     public required League League { get; set; }
+    public required MatchStatus Status { get; set; }
     public required string HomeTeam { get; set; }
     public required string HomeTeamCrestUrl { get; set; }
     public required string AwayTeam { get; set; }

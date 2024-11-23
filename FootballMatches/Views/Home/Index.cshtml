@@ -1,5 +1,10 @@
 ﻿@model List<FootballMatches.Models.Dto.LeagueDto>
 
+<div class="view-switch-container">
+    <a href="/Home/Index?view=Recent" class="view-switch @((ViewData["ViewType"] as string) == "Recent" ? "active" : "")">Recent matches</a>
+    <a href="/Home/Index?view=Upcoming" class="view-switch @((ViewData["ViewType"] as string) == "Upcoming" ? "active" : "")">Upcoming matches</a>
+</div>
+
 <div class="leagues-container">
     @foreach (var league in Model)
     {

@@ -1,20 +1,20 @@
 .leagues-container {
-    padding: 20px;
+    padding: var(--padding-large);
 }
 
 .league-section {
-    margin-bottom: 30px;
-    padding: 15px;
-    background-color: #FFF9E3;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: var(--padding-large);
+    padding: var(--padding-medium);
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius-medium);
+    box-shadow: 0 4px 6px var(--shadow-color);
 }
 
 .league-section h2 {
-    font-size: 18px;
+    font-size: var(--font-size-large);
     font-weight: bold;
-    margin-bottom: 15px;
-    color: #FF4500;
+    margin-bottom: var(--padding-medium);
+    color: var(--accent-color);
 }
 
 .carousel {
@@ -27,7 +27,7 @@
     display: flex;
     flex-wrap: nowrap;
     transition: transform 0.3s ease;
-    gap: 15px;
+    gap: var(--padding-medium);
 }
 
 .carousel-track > match-card {

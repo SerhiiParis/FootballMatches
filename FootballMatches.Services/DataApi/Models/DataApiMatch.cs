@@ -4,6 +4,7 @@ public class DataApiMatch
 {
     public required int Id { get; set; }
     public required DateTimeOffset UtcDate { get; set; }
+    public required string Status { get; set; }
     
     public required DataApiMatchNameArea Area { get; set; }
     public required DataApiMatchCompetition Competition { get; set; }

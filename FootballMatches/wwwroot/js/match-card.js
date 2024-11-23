@@ -64,6 +64,9 @@
         this.shadowRoot.getElementById("team2").textContent = this.getAttribute("team2");
         this.shadowRoot.getElementById("team1Crest").src = this.getAttribute("team1-crest");
         this.shadowRoot.getElementById("team2Crest").src = this.getAttribute("team2-crest");
+        this.shadowRoot.getElementById("odds1").textContent = this.getAttribute("odds1");
+        this.shadowRoot.getElementById("oddsX").textContent = this.getAttribute("oddsX");
+        this.shadowRoot.getElementById("odds2").textContent = this.getAttribute("odds2");
     }
 }
 

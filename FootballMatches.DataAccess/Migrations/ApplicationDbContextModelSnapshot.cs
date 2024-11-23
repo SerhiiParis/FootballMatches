@@ -55,11 +55,15 @@ namespace FootballMatches.DataAccess.Migrations
 
                     b.Property<string>("League")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("CHAR(3)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("CHAR(10)");
 
                     b.HasKey("Id");
 

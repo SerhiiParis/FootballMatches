@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballMatches.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241123213130_Initial")]
+    [Migration("20241124012547_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -32,6 +32,10 @@ namespace FootballMatches.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR(256)");
 
+                    b.Property<string>("AwayTeamCrestUrl")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(256)");
+
                     b.Property<decimal?>("AwayWin")
                         .HasColumnType("DECIMAL (19, 4)");
 
@@ -45,16 +49,24 @@ namespace FootballMatches.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR(256)");
 
+                    b.Property<string>("HomeTeamCrestUrl")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR(256)");
+
                     b.Property<decimal?>("HomeWin")
                         .HasColumnType("DECIMAL (19, 4)");
 
                     b.Property<string>("League")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasColumnType("CHAR(3)");
 
                     b.Property<string>("Location")
                         .IsRequired()
                         .HasColumnType("NVARCHAR(500)");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("CHAR(10)");
 
                     b.HasKey("Id");
 
