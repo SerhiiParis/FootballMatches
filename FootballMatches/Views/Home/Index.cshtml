@@ -9,8 +9,11 @@
                 @foreach (var match in league.Matches)
                 {
                     <match-card
-                        match-time="@match.Date.ToString("HH:mm")"
-                        match-teams="@($"{match.HomeTeam} vs {match.AwayTeam}")"
+                        datetime="@match.Date.LocalDateTime.ToString("o")"
+                        team1="@(match.HomeTeam)"
+                        team2="@(match.AwayTeam)"
+                        team1-crest="@(match.HomeTeamCrestUrl)"
+                        team2-crest="@(match.AwayTeamCrestUrl)"
                         odds1="@match.HomeWin"
                         oddsX="@match.Draw"
                         odds2="@match.AwayWin">

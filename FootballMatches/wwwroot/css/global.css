@@ -5,11 +5,37 @@
 }
 
 :root {
-    --primary-color: #FF4500;
-    --secondary-color: white;
+    --primary-color: #FF6B6B;
+    --secondary-color: #F5F5F5;
     --highlight-color: #228B22;
-    --background-color: #FFF9E3;
+    --background-color: #FFFFFF;
     --shadow-color: rgba(0, 0, 0, 0.1);
+    --font-family: 'Inter', sans-serif;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: #333;
+    line-height: 1.6;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-family);
+    color: #333;
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #C21010;
 }
 
 .box-shadow {

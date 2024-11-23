@@ -20,9 +20,13 @@ public class MatchRepository : IMatchRepository
             .ToListAsync();
     }
 
-    public async Task Save(List<Match> matches)
+    public void Add(List<Match> matches)
     {
         _dbContext.Matches.AddRange(matches);
+    }
+
+    public async Task Save()
+    {
         await _dbContext.SaveChangesAsync();
     }
 }

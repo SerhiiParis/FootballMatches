@@ -14,8 +14,8 @@ public class MatchService : IMatchService
     private readonly IDataApiService _apiService;
     private readonly IMatchRepository _matchRepository;
 
-    private static DateTimeOffset? _lastRecentPull = null;
-    private static DateTimeOffset? _lastUpcomingPull = null;
+    private static DateTimeOffset? _lastRecentPull = null; // should be replaced with Redis
+    private static DateTimeOffset? _lastUpcomingPull = null; // should be replaced with Redis
 
     public MatchService(
         IOptions<ApplicationConfig> appConfig,
@@ -61,27 +61,9 @@ public class MatchService : IMatchService
             repoMatches.Count == 0 ||
             DateTimeOffset.UtcNow - lastPull > TimeSpan.FromHours(maxUpcomingHoursTolerance))
         {
-            from = repoMatches.Count == 0 ? from : repoMatches.Max(x => x.Date);
-            var apiMatches = await _apiService.GetMatches(from, to);
-
-            var newRepoMatches = apiMatches.Select(x => new Match
-            {
-                ApiId = x.ApiId,
-                League = x.League,
-                HomeTeam = x.HomeTeam,
-                AwayTeam = x.AwayTeam,
-                Date = x.Date,
-                Location = x.Location,
-                HomeWin = x.HomeWin,
-                Draw = x.Draw,
-                AwayWin = x.AwayWin
-            }).ToList();
-
-            await _matchRepository.Save(newRepoMatches);
-            repoMatches = repoMatches
-                .Union(newRepoMatches)
-                .DistinctBy(x => x.ApiId)
-                .ToList();
+            var newMatches = await AddMatches(from, to, repoMatches);
+            await _matchRepository.Save();
+            repoMatches = repoMatches.Union(newMatches).ToList();
         }
 
         return repoMatches.GroupBy(x => x.League).Select(grouped => new LeagueDto
@@ -94,6 +76,8 @@ public class MatchService : IMatchService
                 League = match.League,
                 HomeTeam = match.HomeTeam,
                 AwayTeam = match.AwayTeam,
+                HomeTeamCrestUrl = match.HomeTeamCrestUrl,
+                AwayTeamCrestUrl = match.AwayTeamCrestUrl,
                 Date = match.Date,
                 Location = match.Location,
                 HomeWin = match.HomeWin,
@@ -101,5 +85,51 @@ public class MatchService : IMatchService
                 AwayWin = match.AwayWin
             }).ToList()
         }).ToList();
+    }
+
+    private async Task<List<Match>> AddMatches(
+        DateTimeOffset from,
+        DateTimeOffset to,
+        List<Match> repoMatches)
+    {
+        var apiMatches = await _apiService.GetMatches(from, to);
+
+        var matchesToAdd = apiMatches
+            .Where(a => repoMatches.All(r => r.ApiId != a.ApiId))
+            .Select(x => new Match
+            {
+                ApiId = x.ApiId,
+                League = x.League,
+                HomeTeam = x.HomeTeam,
+                AwayTeam = x.AwayTeam,
+                HomeTeamCrestUrl = x.HomeTeamCrestUrl,
+                AwayTeamCrestUrl = x.AwayTeamCrestUrl,
+                Date = x.Date,
+                Location = x.Location,
+                HomeWin = x.HomeWin,
+                Draw = x.Draw
+            })
+            .ToList();
+        var matchesToUpdate = repoMatches.Where(r => apiMatches.Any(a => a.ApiId == r.ApiId));
+
+        foreach (var match in matchesToUpdate)
+        {
+            var newMatch = apiMatches.First(x => x.ApiId == match.ApiId);
+            if (match.Location != newMatch.Location ||
+                match.Date == newMatch.Date ||
+                match.HomeWin != newMatch.HomeWin ||
+                match.Draw != newMatch.Draw ||
+                match.AwayWin != newMatch.AwayWin)
+            {
+                match.Location = newMatch.Location;
+                match.Date = newMatch.Date;
+                match.HomeWin = newMatch.HomeWin;
+                match.Draw = newMatch.Draw;
+                match.AwayWin = newMatch.AwayWin;
+            }
+        }
+
+        _matchRepository.Add(matchesToAdd);
+        return matchesToAdd;
     }
 }

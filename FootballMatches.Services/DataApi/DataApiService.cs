@@ -39,6 +39,8 @@ public class DataApiService : IDataApiService
                 League = Enum.Parse<League>(x.Competition.Code),
                 HomeTeam = x.HomeTeam.Name,
                 AwayTeam = x.AwayTeam.Name,
+                HomeTeamCrestUrl = x.HomeTeam.Crest,
+                AwayTeamCrestUrl = x.AwayTeam.Crest,
                 Date = x.UtcDate,
                 Location = x.Area.Name,
                 HomeWin = OddsGenerator.Get(), // Odds feature is not included in free subscription

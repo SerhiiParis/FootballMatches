@@ -8,10 +8,19 @@
             <div class="card">
                 <div class="card-header">
                     <span class="match-time">
-                        <span class="icon">▶</span> <span id="matchTime"></span>
+                        <span id="matchDateTime"></span>
                     </span>
                 </div>
-                <div class="card-content" id="matchTeams"></div>
+                <div class="card-content">
+                    <div class="team-row">
+                        <img class="team-crest" id="team1Crest" alt="Team 1 Crest">
+                        <span id="team1"></span>
+                    </div>
+                    <div class="team-row">
+                        <img class="team-crest" id="team2Crest" alt="Team 2 Crest">
+                        <span id="team2"></span>
+                    </div>
+                </div>
                 <div class="card-odds">
                     <div class="odds-box">
                         <span>1</span>
@@ -40,11 +49,21 @@
 
         this.shadowRoot.appendChild(style);
 
-        this.shadowRoot.getElementById("matchTime").textContent = this.getAttribute("match-time");
-        this.shadowRoot.getElementById("matchTeams").textContent = this.getAttribute("match-teams");
-        this.shadowRoot.getElementById("odds1").textContent = this.getAttribute("odds1");
-        this.shadowRoot.getElementById("oddsX").textContent = this.getAttribute("oddsX");
-        this.shadowRoot.getElementById("odds2").textContent = this.getAttribute("odds2");
+        const datetimeRaw = this.getAttribute("datetime");
+        const datetime = new Date(datetimeRaw);
+
+        const day = String(datetime.getDate()).padStart(2, "0");
+        const month = String(datetime.getMonth() + 1).padStart(2, "0");
+        const hours = String(datetime.getHours()).padStart(2, "0");
+        const minutes = String(datetime.getMinutes()).padStart(2, "0");
+
+        const formattedDateTime = `${day}.${month} ${hours}:${minutes}`;
+
+        this.shadowRoot.getElementById("matchDateTime").textContent = formattedDateTime;
+        this.shadowRoot.getElementById("team1").textContent = this.getAttribute("team1");
+        this.shadowRoot.getElementById("team2").textContent = this.getAttribute("team2");
+        this.shadowRoot.getElementById("team1Crest").src = this.getAttribute("team1-crest");
+        this.shadowRoot.getElementById("team2Crest").src = this.getAttribute("team2-crest");
     }
 }
 

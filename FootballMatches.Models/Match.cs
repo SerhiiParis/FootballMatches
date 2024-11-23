@@ -16,9 +16,15 @@ public class Match
 
     [Required]
     public required string HomeTeam { get; set; }
+    
+    [Required]
+    public required string HomeTeamCrestUrl { get; set; }
 
     [Required]
     public required string AwayTeam { get; set; }
+    
+    [Required]
+    public required string AwayTeamCrestUrl { get; set; }
 
     [Required]
     public required DateTimeOffset Date { get; set; }

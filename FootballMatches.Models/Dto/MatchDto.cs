@@ -8,7 +8,9 @@ public class MatchDto
     
     public required League League { get; set; }
     public required string HomeTeam { get; set; }
+    public required string HomeTeamCrestUrl { get; set; }
     public required string AwayTeam { get; set; }
+    public required string AwayTeamCrestUrl { get; set; }
     public required DateTimeOffset Date { get; set; }
     public required string Location { get; set; }
     

@@ -30,7 +30,17 @@ namespace FootballMatches.DataAccess.Configurations
                 .IsRequired();
             
             builder
+                .Property(c => c.HomeTeamCrestUrl)
+                .HasColumnType("NVARCHAR(256)")
+                .IsRequired();
+            
+            builder
                 .Property(c => c.AwayTeam)
+                .HasColumnType("NVARCHAR(256)")
+                .IsRequired();
+            
+            builder
+                .Property(c => c.AwayTeamCrestUrl)
                 .HasColumnType("NVARCHAR(256)")
                 .IsRequired();
             
