@@ -1,19 +1,19 @@
-﻿@model List<League>
+﻿@model List<FootballMatches.Models.Dto.LeagueDto>
 
 <div class="leagues-container">
     @foreach (var league in Model)
     {
         <div class="league-section">
-            <h2>@league.Name</h2>
+            <h2>@league.Name (@league.Code)</h2>
             <match-carousel>
                 @foreach (var match in league.Matches)
                 {
-                    <match-card 
+                    <match-card
                         match-time="@match.Date.ToString("HH:mm")"
                         match-teams="@($"{match.HomeTeam} vs {match.AwayTeam}")"
-                        odds1="@match.Odds1"
-                        oddsX="@match.OddsDraw"
-                        odds2="@match.Odds2">
+                        odds1="@match.HomeWin"
+                        oddsX="@match.Draw"
+                        odds2="@match.AwayWin">
                     </match-card>
                 }
             </match-carousel>

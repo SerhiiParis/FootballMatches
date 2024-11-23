@@ -1,28 +1,25 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using FootballMatches.Models;
-using FootballMatches.Services;
+using FootballMatches.Models.Contracts.Services;
 
 namespace FootballMatches.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly FootballDataService _service;
-    private readonly ILogger<HomeController> _logger;
+    private readonly IMatchService _matchService;
 
     public HomeController(
-        FootballDataService service,
-        ILogger<HomeController> logger)
+        IMatchService matchService)
     {
-        _service = service;
-        _logger = logger;
+        _matchService = matchService;
     }
 
-    public IActionResult Index(string view = "Recent")
+    public async Task<IActionResult> Index(string view = "Recent")
     {
-        var matches = view == "Upcoming" ? _service.GetUpcomingLeagues() : _service.GetRecentLeagues();
+        var leagues = view == "Upcoming" ? await _matchService.GetUpcoming() : await _matchService.GetRecent();
         ViewData["ViewType"] = view;
-        return View(matches);
+        return View(leagues);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
