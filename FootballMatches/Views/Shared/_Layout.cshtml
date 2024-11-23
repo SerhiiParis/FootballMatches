@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FootballMatches</title>
+    <link rel="stylesheet" href="~/css/FootballMatches.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/carousel.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/match-card.css" asp-append-version="true" />
+</head>
+<body>
+<header class="main-header">
+    <h1>NATIVE STATS</h1>
+</header>
+<main>
+    @RenderBody()
+</main>
+<script src="~/js/match-carousel.js" asp-append-version="true"></script>
+<script src="~/js/match-card.js" asp-append-version="true"></script>
+</body>
+</html>

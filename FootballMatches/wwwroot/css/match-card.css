@@ -1,0 +1,47 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #FF4500, #C21010);
+    border-radius: 15px;
+    color: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+}
+
+.card-content {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+.card-odds {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.odds-box {
+    flex: 1;
+    background: white;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.odds-box .value {
+    font-size: 16px;
+    color: #228B22;
+}
