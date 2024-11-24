@@ -10,31 +10,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllersWithViews();
+builder.Services.AddOpenApi();
+builder.Services.AddControllers();
 
 AddDbContext(builder.Services);
 AddServices(builder.Services);
 
 var app = builder.Build();
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    app.UseHsts();
+    app.MapOpenApi();
 }
 
+app.MapControllers();
 app.UseHttpsRedirection();
-app.UseRouting();
-app.UseAuthorization();
-
-app.MapStaticAssets();
-app.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}")
-    .WithStaticAssets();
-
 app.Run();
 return;
-
 
 void AddServices(IServiceCollection services)
 {

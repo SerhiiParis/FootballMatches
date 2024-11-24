@@ -9,8 +9,7 @@ public class HomeController : Controller
 {
     private readonly IMatchService _matchService;
 
-    public HomeController(
-        IMatchService matchService)
+    public HomeController(IMatchService matchService)
     {
         _matchService = matchService;
     }

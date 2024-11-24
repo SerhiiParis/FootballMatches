@@ -5,17 +5,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FootballMatches.DataAccess;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : DbContext(options)
 {
     public DbSet<Match> Matches { get; private set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder options)
-    {
-        var path = Path.Join(
-            Environment.GetFolderPath(
-                Environment.SpecialFolder.LocalApplicationData), "footballMatches.db");
-        options.UseSqlite($"Data Source={path}");
-    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

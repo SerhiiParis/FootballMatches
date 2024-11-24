@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballMatches.Models", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballMatches.Shared", "FootballMatches.Shared\FootballMatches.Shared.csproj", "{44921806-0386-462D-B352-D27689C87A8B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootballMatches.Api", "FootballMatches.Api\FootballMatches.Api.csproj", "{04C841AE-CBC3-4F5B-8D92-BFC0DD2CA220}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{44921806-0386-462D-B352-D27689C87A8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44921806-0386-462D-B352-D27689C87A8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44921806-0386-462D-B352-D27689C87A8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04C841AE-CBC3-4F5B-8D92-BFC0DD2CA220}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04C841AE-CBC3-4F5B-8D92-BFC0DD2CA220}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04C841AE-CBC3-4F5B-8D92-BFC0DD2CA220}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04C841AE-CBC3-4F5B-8D92-BFC0DD2CA220}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
