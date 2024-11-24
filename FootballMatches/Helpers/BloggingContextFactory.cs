@@ -9,7 +9,7 @@ public class BloggingContextFactory : IDesignTimeDbContextFactory<ApplicationDbC
     public ApplicationDbContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        optionsBuilder.UseSqlite("Data Source=footballMatches.sqlite");
+        optionsBuilder.UseSqlite("Data Source=db/footballMatches.sqlite");
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

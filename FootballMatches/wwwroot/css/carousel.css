@@ -1,0 +1,18 @@
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-track {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.3s ease;
+    gap: var(--padding-medium);
+}
+
+.carousel-track > match-card {
+    flex: 0 0 calc(100% - 30px);
+    max-width: calc(100% - 30px);
+    box-sizing: border-box;
+}

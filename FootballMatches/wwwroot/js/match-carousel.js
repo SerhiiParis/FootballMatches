@@ -25,14 +25,12 @@
         this.resizeObserver = new ResizeObserver(() => this.updateBoundaries());
     }
 
-    async connectedCallback() {
-        // Dynamically load external CSS
-        const cssURL = "/css/league.css";
-        const cssContent = await fetch(cssURL).then((res) => res.text());
-        const style = document.createElement("style");
-        style.textContent = cssContent;
+    connectedCallback() {
+        const linkElem = document.createElement("link");
+        linkElem.setAttribute("rel", "stylesheet");
+        linkElem.setAttribute("href", "/css/carousel.css");
 
-        this.shadowRoot.appendChild(style);
+        this.shadowRoot.appendChild(linkElem);
 
         this.items = Array.from(this.querySelectorAll("match-card"));
         this.items.forEach(item => this.resizeObserver.observe(item));
@@ -51,7 +49,7 @@
     }
 
     updateBoundaries() {
-        this.maxOffset = null
+        this.maxOffset = null;
         this.currentOffset = 0;
         this.track.style.transform = `translateX(${this.currentOffset}%)`;
     }
@@ -65,7 +63,7 @@
     drag(event) {
         if (!this.isDragging) return;
 
-        this.calculateMaxOffset()
+        this.calculateMaxOffset();
 
         const currentX = event.touches ? event.touches[0].clientX : event.clientX;
         const delta = currentX - this.startX;
@@ -73,41 +71,39 @@
         const deltaPercent = (delta / this.track.offsetParent.clientWidth) * 100;
         let newOffset = this.currentOffset + deltaPercent;
 
-        let reseted = false
+        let reseted = false;
         if (newOffset > 0) {
             newOffset = 0;
-            reseted = true
+            reseted = true;
         } else if (newOffset < this.maxOffset) {
             newOffset = this.maxOffset;
-            reseted = true
+            reseted = true;
         }
 
         this.currentOffset = newOffset;
-
         this.track.style.transform = `translateX(${this.currentOffset}%)`;
 
-        if (!reseted)
-            this.startX = currentX;
+        if (!reseted) this.startX = currentX;
     }
 
-    calculateMaxOffset(){
-        if (this.maxOffset != null)
-            return
+    calculateMaxOffset() {
+        if (this.maxOffset != null) return;
+
         const containerWidth = this.track.offsetParent.clientWidth;
         const gap = parseFloat(window.getComputedStyle(this.track).gap) || 0;
-        const totalItemsWidth = this.items.reduce(
-            (acc, item) => acc + item.clientWidth,
-            0
-        ) + (this.items.length - 1) * gap;
+        const totalItemsWidth =
+            this.items.reduce((acc, item) => acc + item.clientWidth, 0) +
+            (this.items.length - 1) * gap;
 
-        if (totalItemsWidth < containerWidth)
-            this.maxOffset = 0
+        if (totalItemsWidth < containerWidth) this.maxOffset = 0;
         else
-            this.maxOffset = -((totalItemsWidth - containerWidth) / containerWidth) * 100;
+            this.maxOffset =
+                -((totalItemsWidth - containerWidth) / containerWidth) * 100;
+
         this.currentOffset = 0;
         this.track.style.transform = `translateX(${this.currentOffset}%)`;
     }
-    
+
     endDrag(event) {
         if (!this.isDragging) return;
         this.isDragging = false;

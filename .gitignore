@@ -3,3 +3,6 @@ obj/
 .idea/
 .vs/
 .DotSettings
+db/
+*.min.css
+*.min.js

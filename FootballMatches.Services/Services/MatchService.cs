@@ -31,7 +31,7 @@ public class MatchService : IMatchService
     public async Task<List<LeagueDto>> GetRecent()
     {
         var to = DateTimeOffset.UtcNow.Date;
-        var from = to.AddDays(-7).Date;
+        var from = to.AddDays(-3).Date;
         
         var result = await Get(
             from, to, [MatchStatus.Finished], _lastRecentPull,
@@ -44,7 +44,7 @@ public class MatchService : IMatchService
     public async Task<List<LeagueDto>> GetUpcoming()
     {
         var from = DateTimeOffset.UtcNow.Date;
-        var to = from.AddDays(7).Date;
+        var to = from.AddDays(3).Date;
         
         var result = await Get(
             from, to, [MatchStatus.Scheduled], _lastUpcomingPull,
@@ -132,17 +132,17 @@ public class MatchService : IMatchService
             var newMatch = apiMatches.First(x => x.ApiId == match.ApiId);
             if (match.Location != newMatch.Location ||
                 match.Date != newMatch.Date ||
-                match.Status != newMatch.Status ||
-                match.HomeWin != newMatch.HomeWin ||
-                match.Draw != newMatch.Draw ||
-                match.AwayWin != newMatch.AwayWin)
+                match.Status != newMatch.Status //||
+                // match.HomeWin != newMatch.HomeWin ||  // when real data will be available - uncomment
+                // match.Draw != newMatch.Draw ||
+                /*match.AwayWin != newMatch.AwayWin*/ )
             {
                 match.Location = newMatch.Location;
                 match.Date = newMatch.Date;
                 match.Status = newMatch.Status;
-                match.HomeWin = newMatch.HomeWin;
-                match.Draw = newMatch.Draw;
-                match.AwayWin = newMatch.AwayWin;
+                // match.HomeWin = newMatch.HomeWin;
+                // match.Draw = newMatch.Draw;
+                // match.AwayWin = newMatch.AwayWin;
             }
         }
 
