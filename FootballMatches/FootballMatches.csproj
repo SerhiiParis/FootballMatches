@@ -31,4 +31,8 @@
       <ProjectReference Include="..\FootballMatches.Services\FootballMatches.Services.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="db\" />
+    </ItemGroup>
+
 </Project>
