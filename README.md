@@ -34,7 +34,7 @@ Performance metrics tested via Lighthouse are available here:
 Follow these steps to set up and run the project locally:
 
 ### 1. Set Environment Variable
-Add a local secret for accessing the [Football Data API](https://www.football-data.org/). The key should be set as an environment variable:
+Add a local secret for accessing the [Football Data API](https://www.football-data.org/). For example, as an environment variable [Guide](https://learn.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-9.0):
 
 ```plaintext
 DataApi__ApiKey=<Your API Key>
