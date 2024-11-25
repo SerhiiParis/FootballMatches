@@ -15,12 +15,12 @@
                 .carousel-track {
                     display: flex;
                     flex-wrap: nowrap;
-                    gap: 16px;
+                    gap: var(--padding-medium);
                 }
 
                 .carousel-track > * {
-                    flex: 0 0 calc(100% - 30px);
-                    max-width: calc(100% - 30px);
+                    flex: 0 0 calc(100% - var(--padding-large));
+                    max-width: calc(100% - var(--padding-large));
                     box-sizing: border-box;
                 }
             </style>

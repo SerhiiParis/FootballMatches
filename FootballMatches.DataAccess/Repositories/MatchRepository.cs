@@ -26,6 +26,7 @@ public class MatchRepository : IMatchRepository
         _dbContext.Matches.AddRange(matches);
     }
 
+    // Simplified due to SQLite ambient transactions limitations and to keep the code shorter.
     public async Task Save()
     {
         await _dbContext.SaveChangesAsync();

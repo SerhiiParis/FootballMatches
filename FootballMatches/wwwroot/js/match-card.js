@@ -44,27 +44,27 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                background: linear-gradient(135deg, #FF6B6B, #C21010);
-                border-radius: 12px;
-                color: white;
-                padding: 16px;
+                background: linear-gradient(135deg, var(--primary-color), #C21010);
+                border-radius: var(--border-radius-large);
+                color: var(--white-color);
+                padding: var(--padding-medium);
                 height: 160px;
                 width: 280px;
-                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-                font-family: 'Inter', sans-serif;
+                box-shadow: 0 6px 12px var(--shadow-color);
+                font-family: var(--font-family);
             }
 
             .card-header {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                font-size: 14px;
-                color: rgba(255, 255, 255, 0.85);
+                font-size: var(--font-size-small);
+                color: var(--secondary-shadow-color);
                 letter-spacing: 0.5px;
             }
 
             .card-content {
-                margin-top: 8px;
+                margin-top: var(--padding-small);
                 flex: 1;
                 display: flex;
                 flex-direction: column;
@@ -75,12 +75,12 @@
             .team-row {
                 display: flex;
                 align-items: center;
-                font-size: 16px;
+                font-size: var(--font-size-medium);
                 font-weight: 600;
                 text-align: left;
-                color: white;
+                color: var(--white-color);
                 line-height: 1.2;
-                gap: 8px;
+                gap: var(--padding-small);
             }
 
             .team-crest {
@@ -98,30 +98,30 @@
                 display: flex;
                 justify-content: space-between;
                 margin-top: 12px;
-                gap: 8px;
+                gap: var(--padding-small);
             }
 
             .odds-box {
                 flex: 1;
                 background: rgba(255, 255, 255, 0.9);
-                border-radius: 8px;
-                padding: 8px;
+                border-radius: var(--border-radius-medium);
+                padding: var(--padding-small);
                 text-align: center;
-                color: #333;
-                font-size: 14px;
+                color: var(--text-color);
+                font-size: var(--font-size-small);
                 font-weight: 500;
                 height: 50px;
                 width: 80px;
-                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 6px var(--shadow-color);
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
             }
 
             .odds-box .value {
-                font-size: 16px;
+                font-size: var(--font-size-medium);
                 font-weight: bold;
-                color: #228B22;
+                color: var(--success-color);
             }
         `;
 

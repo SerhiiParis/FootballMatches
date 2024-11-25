@@ -31,7 +31,7 @@ public class MatchService : IMatchService
     public async Task<List<LeagueDto>> GetRecent()
     {
         var to = DateTimeOffset.UtcNow.Date;
-        var from = to.AddDays(-3).Date;
+        var from = to.AddDays(-7).Date;
         
         var result = await Get(
             from, to, [MatchStatus.Finished], _lastRecentPull,
@@ -44,7 +44,7 @@ public class MatchService : IMatchService
     public async Task<List<LeagueDto>> GetUpcoming()
     {
         var from = DateTimeOffset.UtcNow.Date;
-        var to = from.AddDays(3).Date;
+        var to = from.AddDays(7).Date;
         
         var result = await Get(
             from, to, [MatchStatus.Scheduled], _lastUpcomingPull,

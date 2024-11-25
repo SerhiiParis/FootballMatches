@@ -76,7 +76,7 @@ void AddWebOptimizer(IServiceCollection services)
     {
         pipeline.AddCssBundle(
             "/css/styles.css",
-            "css/variables.css", "css/global.css", "css/header.css", "css/league.css");
+            "css/global.css", "css/header.css");
         pipeline.AddJavaScriptBundle(
             "/js/scripts.js",
             "js/match-card.js", "js/match-carousel.js");

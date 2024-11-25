@@ -1,23 +1,4 @@
-﻿.view-switch-container {
-    display: flex;
-    justify-content: center;
-    margin: var(--padding-large) 0;
-    gap: var(--padding-medium);
-}
-
-.view-switch {
-    padding: var(--padding-small) var(--padding-medium);
-    font-size: var(--font-size-medium);
-    font-weight: bold;
-    color: var(--text-color);
-    text-decoration: none;
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius-small);
-    background-color: var(--secondary-color);
-    transition: all 0.3s ease;
-}
-
-.view-switch.active {
+﻿.view-switch.active {
     background-color: var(--primary-color);
     color: var(--white-color);
 }

@@ -4,17 +4,19 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FootballMatches</title>
+    <link rel="stylesheet" href="/css/variables.css" asp-append-version="true" />
     <style>
         html, body {
             margin: 0;
             padding: 0;
         }
+
         .main-header {
             width: 100%;
-            padding: 16px;
-            background-color: #FF6B6B;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            color: white;
+            padding: var(--padding-medium);
+            background-color: var(--primary-color);
+            box-shadow: 0 4px 8px var(--shadow-color);
+            color: var(--white-color);
             box-sizing: border-box;
         }
         .header-container {
@@ -24,24 +26,26 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+        .header-nav {
+            display: flex;
+            gap: var(--padding-medium);
+        }
+        
         .logo h1 {
-            font-size: 24px;
+            font-size: var(--font-size-title);
             font-weight: 700;
             margin: 0;
             letter-spacing: 1px;
         }
-        .header-nav {
-            display: flex;
-            gap: 16px;
-        }
+
         .nav-btn {
-            padding: 8px 16px;
-            font-size: 14px;
+            padding: var(--padding-small) var(--padding-medium);
+            font-size: var(--font-size-small);
             font-weight: 600;
-            color: #FFF9E3;
-            border: 2px solid white;
-            border-radius: 6px;
-            background-color: #FF6B6B;
+            color: var(--secondary-color);
+            border: 2px solid var(--white-color);
+            border-radius: var(--border-radius-small);
+            background-color: var(--primary-color);
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
