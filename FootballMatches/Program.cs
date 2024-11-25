@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
+AddWebOptimizer(builder.Services);
 AddDbContext(builder.Services);
 AddServices(builder.Services);
 
@@ -26,6 +27,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
 
+app.UseWebOptimizer();
 app.MapStaticAssets();
 app.MapControllerRoute(
         name: "default",
@@ -66,4 +68,17 @@ void AddDbContext(IServiceCollection services)
         o.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
     });
     services.AddScoped<IMatchRepository, MatchRepository>();
+}
+
+void AddWebOptimizer(IServiceCollection services)
+{
+    services.AddWebOptimizer(pipeline =>
+    {
+        pipeline.AddCssBundle(
+            "/css/styles.css",
+            "css/variables.css", "css/global.css", "css/header.css", "css/league.css");
+        pipeline.AddJavaScriptBundle(
+            "/js/scripts.js",
+            "js/match-card.js", "js/match-carousel.js");
+    });
 }

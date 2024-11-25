@@ -26,8 +26,3 @@
     background-color: var(--hover-color);
     color: var(--white-color);
 }
-
-html, body {
-    margin: 0;
-    padding: 0;
-}

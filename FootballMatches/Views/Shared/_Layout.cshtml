@@ -4,11 +4,49 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - FootballMatches</title>
-    <link rel="stylesheet" href="~/css/variables.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/global.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/league.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/header.css" asp-append-version="true" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+        .main-header {
+            width: 100%;
+            padding: 16px;
+            background-color: #FF6B6B;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: white;
+            box-sizing: border-box;
+        }
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+        .header-nav {
+            display: flex;
+            gap: 16px;
+        }
+        .nav-btn {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFF9E3;
+            border: 2px solid white;
+            border-radius: 6px;
+            background-color: #FF6B6B;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+    </style>
+
 </head>
 <body>
 <header class="main-header">
@@ -25,7 +63,8 @@
 <main>
     @RenderBody()
 </main>
-<script src="~/js/match-carousel.js" asp-append-version="true"></script>
-<script src="~/js/match-card.js" asp-append-version="true"></script>
+<link rel="stylesheet" href="/css/styles.css" asp-append-version="true" />
+@* ReSharper disable once Html.PathError *@
+<script src="~/js/scripts.js" asp-append-version="true" defer></script>
 </body>
 </html>

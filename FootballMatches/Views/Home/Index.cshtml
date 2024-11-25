@@ -4,25 +4,99 @@
     <a href="/Home/Index?view=Recent" class="view-switch @((ViewData["ViewType"] as string) == "Recent" ? "active" : "")">Recent matches</a>
     <a href="/Home/Index?view=Upcoming" class="view-switch @((ViewData["ViewType"] as string) == "Upcoming" ? "active" : "")">Upcoming matches</a>
 </div>
+<style>
+    .view-switch-container {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+        gap: 16px;
+    }
+
+    .view-switch {
+        padding: 8px 16px;
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        text-decoration: none;
+        border: 2px solid #FF6B6B;
+        border-radius: 6px;
+        background-color: #FFF9E3;
+        transition: all 0.3s ease;
+    }
+    
+    .leagues-container {
+        padding: 20px;
+    }
+
+    .league-section {
+        margin-bottom: 20px;
+        padding: 16px;
+        background-color: #FFF9E3;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .league-section h2 {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 16px;
+        color: #FF4500;
+    }
+
+    .carousel-placeholder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 192px; /* Match the carousel height */
+        width: 100%; /* Full width of the carousel */
+        background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+        background-size: 200% 100%;
+        animation: loading 1.5s infinite;
+        border-radius: 12px;
+        margin-bottom: 16px;
+    }
+
+    @@keyframes loading {
+        0% {
+            background-position: 200% 0;
+        }
+        100% {
+            background-position: -200% 0;
+        }
+    }
+
+    .carousel-container {
+        position: relative;
+    }
+
+    .carousel-hidden {
+        display: none;
+    }
+</style>
 
 <div class="leagues-container">
     @foreach (var league in Model)
     {
         <div class="league-section">
             <h2>@league.Name (@league.Code)</h2>
-            <match-carousel>
-                @foreach (var match in league.Matches)
-                {
-                    <match-card
-                        datetime="@match.Date.LocalDateTime.ToString("o")"
-                        team1="@(match.HomeTeam)"
-                        team2="@(match.AwayTeam)"
-                        odds1="@match.HomeWin"
-                        oddsX="@match.Draw"
-                        odds2="@match.AwayWin">
-                    </match-card>
-                }
-            </match-carousel>
+            <div class="carousel-container">
+                <div class="carousel-placeholder"></div>
+                <match-carousel>
+                    @foreach (var match in league.Matches)
+                    {
+                        <match-card
+                            datetime="@match.Date.LocalDateTime.ToString("o")"
+                            team1="@match.HomeTeam"
+                            team2="@match.AwayTeam"
+                            team1CrestUrl="@match.HomeTeamCrestUrl"
+                            team2CrestUrl="@match.AwayTeamCrestUrl"
+                            odds1="@match.HomeWin"
+                            oddsX="@match.Draw"
+                            odds2="@match.AwayWin">
+                        </match-card>
+                    }
+                </match-carousel>
+            </div>
         </div>
     }
 </div>
