@@ -21,10 +21,10 @@ Performance metrics tested via Lighthouse are available here:
 
 ### Lighthouse Performance Screenshots
 
-- **Mobile Performance**  
+- **Performance**  
 ![Mobile Lighthouse Performance](https://drive.google.com/uc?export=view&id=10Xna9Ch5fYKLFhjF03vR-Q12Bym2U91y)
 
-- **Desktop Performance**  
+- **Lighthouse Audits**  
 ![Desktop Lighthouse Performance](https://drive.google.com/uc?export=view&id=1fgpDEYpH8_3kd9_yBolW-hzgcnJRmvxl)
 
 <br>
